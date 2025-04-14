@@ -1,0 +1,257 @@
+.formContainer {
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.inputsNamePhone {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputForm label {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.inputForm input {
+    padding: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
+
+.inputForm input::placeholder {
+    font-size: 16px;
+    line-height: 18px;
+    color: #c0c0c0;
+}
+
+.labelForServices {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.inputFormCheckbox {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.inputFormCheckbox label {
+    width: fit-content;
+    padding-left: 25px;
+    position: relative;
+    font-size: 16px;
+    line-height: 18px;
+    color: #c0c0c0;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.inputFormCheckbox label:hover {
+    color: #fff;
+}
+
+.inputFormCheckbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: transparent;
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.inputFormCheckbox label:hover .checkmark {
+    border: 1px solid #fff;
+}
+
+.checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+    top: 1px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.inputFormCheckbox input[type='checkbox']:checked ~ .checkmark::after {
+    display: block;
+}
+
+.inputFormDate {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputFormDate label {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.inputFormDate input {
+    background-color: transparent;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    color: #c0c0c0;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.inputFormDate input:hover {
+    border: 1px solid #fff;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.inputFormDate input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.inputFormDate:hover input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 1;
+}
+
+.labelForTime {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.txtForTime {
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+}
+
+.btnContainer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.btnDisabled {
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: rgb(84, 84, 84);
+    cursor: not-allowed;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.btnActive {
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.btnActive:hover {
+    filter: drop-shadow(0px 0px 8px #fff);
+}
+
+.formDescription h2 {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.formLinks {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formLinks a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    opacity: 0.7;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.formLinks a img {
+    width: 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.formLinks a:hover {
+    opacity: 1;
+}
+
+.formLinks a:hover img {
+    filter: drop-shadow(0px 0px 8px #fff);
+}

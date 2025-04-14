@@ -1,0 +1,82 @@
+.HeroSection {
+    height: 100vh;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.95) 100%
+        ),
+        url('/src/assets/images/heroSectionBG.jpg');
+    background-size: cover;
+    background-position: 100% 35%;
+    position: relative;
+}
+
+.HeroSectionText {
+    width: 50%;
+    padding-bottom: 70px;
+    text-align: center;
+}
+
+.HeroSectionText h3 {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    color: #c0c0c0;
+    animation: smoothTxt 1s ease-in-out;
+}
+
+.HeroSectionText h1 {
+    font-size: 54px;
+    line-height: 60px;
+    animation: smoothTxt 1.5s ease-in-out;
+}
+
+.HeroSectionText p {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #c0c0c0;
+    animation: smoothTxt 2s ease-in-out;
+}
+
+.HeroSectionLinks {
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.HeroSectionLinks a {
+    text-decoration: none;
+}
+
+.HeroSectionLinks a img {
+    height: 25px;
+    opacity: 0.7;
+    transition: 0.3s ease-in-out;
+}
+
+.HeroSectionLinks a img:hover {
+    opacity: 1;
+    filter: drop-shadow(0px 0px 8px #fff);
+}
+
+@keyframes smoothTxt {
+    0% {
+        opacity: 0;
+        /* filter: blur(10px); */
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        /* filter: blur(0); */
+    }
+}

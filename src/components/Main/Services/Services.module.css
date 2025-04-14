@@ -1,0 +1,58 @@
+.servicesSectionBtns ul {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.servicesList {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.serviceItem {
+    padding-bottom: 15px;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.serviceItem:last-child {
+    border: none;
+}
+
+.serviceDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.serviceDescription h3 {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.serviceDescription h4 {
+    font-size: 16px;
+    line-height: 18px;
+    color: #c0c0c0;
+}
+
+.servicePrice {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.servicePrice span {
+    font-size: 14px;
+    font-weight: 400;
+}
