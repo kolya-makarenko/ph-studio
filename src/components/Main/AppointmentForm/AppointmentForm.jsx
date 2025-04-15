@@ -120,7 +120,19 @@ const AppointmentForm = () => {
     const [selectedTime, setSelectedTime] = useState('');
     const [bookedSlots, setBookedSlots] = useState([]);
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
-    const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+
+    const formatDateISO = (dateObj) => {
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const minBookingDate = useMemo(() => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return formatDateISO(tomorrow);
+    }, []);
 
     const handleServiceChange = (event) => {
         const { name, checked } = event.target;
@@ -304,7 +316,7 @@ const AppointmentForm = () => {
                                 type="date"
                                 id="date"
                                 value={date}
-                                min={today}
+                                min={minBookingDate}
                                 onChange={(e) => setDate(e.target.value)}
                                 required
                                 disabled={isLoading}
@@ -315,7 +327,7 @@ const AppointmentForm = () => {
                                 htmlFor="time"
                                 className={classes.labelForTime}
                             >
-                                Час (доступно з 8:00 до 18:00):
+                                Час (доступно з 11:00 до 20:00):
                             </label>
                             {date ? (
                                 isLoadingSlots ? (

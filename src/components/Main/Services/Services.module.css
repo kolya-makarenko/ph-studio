@@ -1,58 +1,83 @@
-.servicesSectionBtns ul {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
+.servicesSection {
+    padding-bottom: 40px;
 }
 
-.servicesList {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.serviceItem {
-    padding-bottom: 15px;
+.servicesContainer {
     display: grid;
-    grid-template-columns: 5fr 1fr;
-    border-bottom: 1px solid #c0c0c0;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
-.serviceItem:last-child {
-    border: none;
+.serviceCard {
+    height: 400px;
+    background-size: cover;
+    background-position: center center;
 }
 
-.serviceDescription {
+.serviceCardDescription {
+    height: 100%;
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: end;
+    gap: 10px;
+    box-sizing: border-box;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.1) 30%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
 }
 
-.serviceDescription h3 {
+.serviceCardDescription h3 {
     font-size: 18px;
     line-height: 20px;
-    font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: #fff;
 }
 
-.serviceDescription h4 {
+.serviceCardDescription h4 {
     font-size: 16px;
     line-height: 18px;
     color: #c0c0c0;
 }
 
-.servicePrice {
+.serviceCardDescFlex {
+    margin-top: 20px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
-    font-size: 18px;
-    line-height: 20px;
-    font-weight: 600;
+}
+
+.servicePrice {
+    font-size: 20px;
+    line-height: 22px;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 .servicePrice span {
     font-size: 14px;
     font-weight: 400;
+    letter-spacing: 0px;
+}
+
+.linkToForm a {
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.linkToForm a:hover {
+    background: #fff;
+    color: #000;
+    filter: drop-shadow(0px 0px 8px #fff);
 }

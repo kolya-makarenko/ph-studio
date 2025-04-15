@@ -10,19 +10,19 @@ const Menu = () => {
                     <NavLink to="/">Головна</NavLink>
                 </li>
                 <li>
-                    <NavLink to="services">Послуги</NavLink>
+                    <NavLink to="/services">Послуги</NavLink>
                 </li>
                 <li>
-                    <NavLink to="about">Про мене</NavLink>
+                    <NavLink to="/about">Про мене</NavLink>
                 </li>
                 <li>
-                    <NavLink to="galery">Галерея робіт</NavLink>
+                    <NavLink to="/galery">Галерея робіт</NavLink>
                 </li>
                 <li>
-                    <NavLink to="contacts">Контакти</NavLink>
+                    <NavLink to="/contacts">Контакти</NavLink>
                 </li>
                 <li>
-                    <NavLink to="form">Запис</NavLink>
+                    <NavLink to="/form">Запис</NavLink>
                 </li>
             </ul>
         </nav>
