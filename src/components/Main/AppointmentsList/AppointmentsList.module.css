@@ -57,3 +57,39 @@
     font-size: 14px;
     line-height: 16px;
 }
+
+@media (max-width: 900px) {
+    .table td {
+        font-size: 12px;
+    }
+    .table tr,
+    .table td,
+    .table th {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 700px) {
+    .table th {
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0;
+    }
+}
+
+@media (max-width: 580px) {
+    .table tr,
+    .table td,
+    .table th {
+        padding: 2px;
+    }
+    .table th {
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 0;
+    }
+    .table td {
+        font-size: 10px;
+        line-height: 12px;
+    }
+}

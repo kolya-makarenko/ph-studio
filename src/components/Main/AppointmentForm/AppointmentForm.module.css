@@ -255,3 +255,29 @@
 .formLinks a:hover img {
     filter: drop-shadow(0px 0px 8px #fff);
 }
+
+@media (max-width: 900px) {
+    .formContainer {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 850px) {
+    .formContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .formLinks {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 850px) {
+    .inputsNamePhone {
+        grid-template-columns: 1fr;
+    }
+    .inputFormCheckbox {
+        grid-template-columns: 1fr;
+    }
+}

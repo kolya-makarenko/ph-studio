@@ -8,7 +8,7 @@
 .galeryImageBlock img {
     width: 100%;
     opacity: 0.65;
-    filter: blur(1px);
+    filter: blur(0.5px);
     transition: 0.4s ease-in-out;
     cursor: pointer;
 }
@@ -27,7 +27,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 5;
     animation: smoothImage 0.3s ease-in-out;
 }
@@ -37,12 +37,12 @@
 }
 
 .galeryImageOpen {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 95px);
 }
 
 .galeryImageCloseBtn {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,8 +51,8 @@
     border: 1px solid #fff;
     box-sizing: border-box;
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: -15px;
+    right: -15px;
     font-size: 40px;
     line-height: 40px;
     font-weight: 200;
@@ -63,6 +63,27 @@
 
 .galeryImageCloseBtn:hover {
     font-weight: 400;
+}
+
+@media (max-width: 900px) {
+    .galeryContainer {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    .galeryImageOpen {
+        height: calc(100vh - 70px);
+    }
+}
+
+@media (max-width: 800px) {
+    .galeryContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .galeryContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @keyframes smoothImage {

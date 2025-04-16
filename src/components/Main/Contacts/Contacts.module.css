@@ -1,4 +1,5 @@
 .contactsContainer {
+    padding-bottom: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -57,4 +58,34 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .contactsContainer {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    .contactsContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .contactsInfo {
+        flex-direction: column-reverse;
+    }
+    .contactsMap {
+        height: calc(100vh - 100px);
+    }
+}
+
+@media (max-width: 600px) {
+    .contactsInfo h2 {
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+    .contactsInfo a {
+        font-size: 16px;
+    }
 }
