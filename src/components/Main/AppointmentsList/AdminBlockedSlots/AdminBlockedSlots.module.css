@@ -1,0 +1,162 @@
+.blockedSlotsBlock {
+    margin-top: 20px;
+}
+
+.blockedSlotsBlock h2 {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.blockedSlotsContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blockedSlotsContainer label {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.blockedSlotsDate {
+    width: fit-content;
+    background-color: transparent;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    color: #c0c0c0;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsDate:hover {
+    border: 1px solid #fff;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.blockedSlotsDate::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsDate:hover::-webkit-calendar-picker-indicator {
+    opacity: 1;
+}
+
+.blockedSlotsTime {
+    width: fit-content;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsTime:hover {
+    filter: drop-shadow(0px 0px 8px #fff);
+}
+
+.blockedSlotsBtn {
+    width: fit-content;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: rgb(84, 84, 84);
+    cursor: not-allowed;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsBtnActive {
+    width: fit-content;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsBtnActive:hover {
+    filter: drop-shadow(0px 0px 8px #fff);
+}
+
+.blockedSlotsContainer p {
+    margin-top: 20px;
+}
+
+.blockedSlotsList {
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+.blockedSlotsList h3 {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.blockedSlotsList p {
+    margin-top: 20px;
+}
+
+.blockedSlotsList ul {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blockedSlotsList ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.blockedSlotsList ul li button {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.blockedSlotsList ul li button:hover {
+    filter: drop-shadow(0px 0px 8px #fff);
+}

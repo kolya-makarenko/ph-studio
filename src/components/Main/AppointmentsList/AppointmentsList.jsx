@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { databases, Query } from '../../../appwrite';
+import AdminDisabledDates from './AdminDisabledDates/AdminDisabledDates';
+import AdminBlockedSlots from './AdminBlockedSlots/AdminBlockedSlots';
 
 import classes from './AppointmentsList.module.css';
 
@@ -80,56 +82,64 @@ function AppointmentsList() {
     }
 
     return (
-        <section className={classes.adminSection}>
-            <div className="wrapper">
-                <h2>Записи (за останній тиждень та майбутні)</h2>
-                {appointments.length === 0 ? (
-                    <p>Немає записів за останній тиждень або на майбутнє.</p>
-                ) : (
-                    <table className={classes.table}>
-                        <thead className={classes.tableHeader}>
-                            <tr>
-                                <th>Ім'я</th>
-                                <th>Телефон</th>
-                                <th>Дата</th>
-                                <th>Час</th>
-                                <th>Вибрані Послуги</th>
-                                <th>Створено</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointments.map((appointment) => (
-                                <tr key={appointment.$id}>
-                                    <td>{appointment.name}</td>
-                                    <td>{appointment.phone}</td>
-                                    <td>{appointment.date}</td>
-                                    <td>{appointment.time}</td>
-                                    <td>
-                                        {Array.isArray(
-                                            appointment.selectedServices
-                                        )
-                                            ? appointment.selectedServices.join(
-                                                  ', '
-                                              )
-                                            : 'N/A'}
-                                    </td>
-                                    <td>
-                                        {formatDateTime(appointment.$createdAt)}
-                                    </td>
+        <>
+            <section className={classes.adminSection}>
+                <div className="wrapper">
+                    <h2>Записи (за останній тиждень та майбутні)</h2>
+                    {appointments.length === 0 ? (
+                        <p>
+                            Немає записів за останній тиждень або на майбутнє.
+                        </p>
+                    ) : (
+                        <table className={classes.table}>
+                            <thead className={classes.tableHeader}>
+                                <tr>
+                                    <th>Ім'я</th>
+                                    <th>Телефон</th>
+                                    <th>Дата</th>
+                                    <th>Час</th>
+                                    <th>Вибрані Послуги</th>
+                                    <th>Створено</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-                <button
-                    onClick={fetchAppointments}
-                    disabled={isLoading}
-                    className={classes.refreshBtn}
-                >
-                    {isLoading ? 'Оновлення...' : 'Оновити список'}
-                </button>
-            </div>
-        </section>
+                            </thead>
+                            <tbody>
+                                {appointments.map((appointment) => (
+                                    <tr key={appointment.$id}>
+                                        <td>{appointment.name}</td>
+                                        <td>{appointment.phone}</td>
+                                        <td>{appointment.date}</td>
+                                        <td>{appointment.time}</td>
+                                        <td>
+                                            {Array.isArray(
+                                                appointment.selectedServices
+                                            )
+                                                ? appointment.selectedServices.join(
+                                                      ', '
+                                                  )
+                                                : 'N/A'}
+                                        </td>
+                                        <td>
+                                            {formatDateTime(
+                                                appointment.$createdAt
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                    <button
+                        onClick={fetchAppointments}
+                        disabled={isLoading}
+                        className={classes.refreshBtn}
+                    >
+                        {isLoading ? 'Оновлення...' : 'Оновити список'}
+                    </button>
+                </div>
+            </section>
+            <AdminDisabledDates />
+            <AdminBlockedSlots />
+        </>
     );
 }
 

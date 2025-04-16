@@ -7,6 +7,10 @@ import instagram from '../../../assets/images/instagram.svg';
 
 const DATABASE_ID = import.meta.env.VITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_COLLECTION_ID;
+const DISABLED_DATES_COLLECTION_ID = import.meta.env
+    .VITE_DISABLED_DATES_COLLECTION_ID;
+const DISABLED_SLOTS_COLLECTION_ID = import.meta.env
+    .VITE_DISABLED_SLOTS_COLLECTION_ID;
 
 const AVAILABLE_SERVICES = [
     {
@@ -29,12 +33,7 @@ const AVAILABLE_SERVICES = [
             'Манікюр, укріплення, підняття клюючих нігтів/донарощування, важкий дизайн або дизайн на всі нігті',
         price: 700,
     },
-    {
-        id: '3',
-        name: 'Манікюр без покриття',
-        description: null,
-        price: 300,
-    },
+    { id: '3', name: 'Манікюр без покриття', description: null, price: 300 },
     {
         id: '4',
         name: 'Зняття покриття',
@@ -69,12 +68,7 @@ const AVAILABLE_SERVICES = [
         description: 'Манікюр, корекція нарощування, покриття в один тон',
         price: 700,
     },
-    {
-        id: '9',
-        name: 'Зняття нарощування',
-        description: null,
-        price: 200,
-    },
+    { id: '9', name: 'Зняття нарощування', description: null, price: 200 },
     {
         id: '10',
         name: 'Педикюр Complex “Lite”',
@@ -120,6 +114,8 @@ const AppointmentForm = () => {
     const [selectedTime, setSelectedTime] = useState('');
     const [bookedSlots, setBookedSlots] = useState([]);
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
+    const [disabledDates, setDisabledDates] = useState([]);
+    const [disabledSlots, setDisabledSlots] = useState([]);
 
     const formatDateISO = (dateObj) => {
         const year = dateObj.getFullYear();
@@ -134,6 +130,36 @@ const AppointmentForm = () => {
         return formatDateISO(tomorrow);
     }, []);
 
+    const isDateDisabled = (dateStr) => disabledDates.includes(dateStr);
+
+    const fetchDisabledDates = async () => {
+        try {
+            const response = await databases.listDocuments(
+                DATABASE_ID,
+                DISABLED_DATES_COLLECTION_ID,
+                [Query.limit(100)]
+            );
+            const dates = response.documents.map((doc) => doc.date);
+            setDisabledDates(dates);
+        } catch (error) {
+            console.error('Помилка завантаження заборонених дат:', error);
+        }
+    };
+
+    const fetchDisabledSlots = async (selectedDate) => {
+        try {
+            const response = await databases.listDocuments(
+                DATABASE_ID,
+                DISABLED_SLOTS_COLLECTION_ID,
+                [Query.equal('date', selectedDate), Query.limit(100)]
+            );
+            const times = response.documents.map((doc) => doc.time);
+            setDisabledSlots(times);
+        } catch (error) {
+            console.error('Помилка завантаження заблокованих слотів:', error);
+        }
+    };
+
     const handleServiceChange = (event) => {
         const { name, checked } = event.target;
         setSelectedServices((prev) => ({
@@ -144,7 +170,6 @@ const AppointmentForm = () => {
 
     const fetchBookedSlots = async (selectedDate) => {
         if (!selectedDate) return;
-
         setIsLoadingSlots(true);
         setBookedSlots([]);
         setSelectedTime('');
@@ -160,78 +185,79 @@ const AppointmentForm = () => {
                     Query.select(['time']),
                 ]
             );
-
             setBookedSlots(response.documents.map((doc) => doc.time));
         } catch (error) {
-            console.error('Помилка завантаження зайнятих слотів:', error);
-            setMessage(
-                `Помилка: Не вдалося завантажити доступний час. ${error.message}`
-            );
+            console.error('Помилка завантаження слотів:', error);
         } finally {
             setIsLoadingSlots(false);
         }
     };
 
     useEffect(() => {
-        fetchBookedSlots(date);
+        fetchDisabledDates();
+    }, []);
+
+    useEffect(() => {
+        if (date) {
+            fetchBookedSlots(date);
+            fetchDisabledSlots(date);
+        }
     }, [date]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const servicesToSend = Object.entries(selectedServices)
-            .filter(([id, isSelected]) => isSelected)
+            .filter(([_, isSelected]) => isSelected)
             .map(
                 ([id]) =>
                     AVAILABLE_SERVICES.find((s) => s.id === id)?.name || id
             );
 
         if (!name || !phone || !date || !selectedTime) {
+            setMessage('Помилка: Заповніть усі поля та виберіть час.');
+            return;
+        }
+
+        if (isDateDisabled(date)) {
+            setMessage('Помилка: Ця дата недоступна для запису.');
+            return;
+        }
+
+        if (
+            bookedSlots.includes(selectedTime) ||
+            disabledSlots.includes(selectedTime)
+        ) {
             setMessage(
-                'Помилка: Будь ласка, заповніть усі поля та виберіть час.'
+                'Помилка: Цей час недоступний. Виберіть інший, будь ласка.'
             );
             return;
         }
+
         if (servicesToSend.length === 0) {
-            setMessage('Помилка: Будь ласка, виберіть хоча б одну послугу.');
-            return;
-        }
-        if (bookedSlots.includes(selectedTime)) {
-            setMessage(
-                'Помилка: Вибраний час вже зайнятий. Будь ласка, оберіть доступний час або виберіть інший.'
-            );
-            fetchBookedSlots(date);
+            setMessage('Помилка: Оберіть хоча б одну послугу.');
             return;
         }
 
-        setMessage('');
         setIsLoading(true);
-
-        const appointmentData = {
-            name,
-            phone,
-            date,
-            time: selectedTime,
-            selectedServices: servicesToSend,
-        };
-
         try {
-            const response = await databases.createDocument(
+            await databases.createDocument(
                 DATABASE_ID,
                 COLLECTION_ID,
                 ID.unique(),
-                appointmentData
+                {
+                    name,
+                    phone,
+                    date,
+                    time: selectedTime,
+                    selectedServices: servicesToSend,
+                }
             );
-
-            console.log('Appwrite response:', response);
-            setMessage(
-                `Запис успішно створено! Незабаром з вами зв'яжуться для підтвердження запису.`
-            );
+            setMessage('Запис успішно створено!');
             setName('');
             setPhone('');
             setDate('');
             setSelectedTime('');
-            setBookedSlots([]);
             setSelectedServices(
                 AVAILABLE_SERVICES.reduce((acc, service) => {
                     acc[service.id] = false;
@@ -239,16 +265,8 @@ const AppointmentForm = () => {
                 }, {})
             );
         } catch (error) {
-            console.error('Помилка при відправці в Appwrite:', error);
-            setMessage(
-                `Помилка: ${error.message || 'Не вдалося зберегти запис.'}`
-            );
-            if (error.code === 409) {
-                setMessage(
-                    'Помилка: Цей час щойно забронювали. Будь ласка, виберіть інший час.'
-                );
-                fetchBookedSlots(date);
-            }
+            console.error('Помилка запису:', error);
+            setMessage('Помилка при створенні запису.');
         } finally {
             setIsLoading(false);
         }
@@ -317,7 +335,18 @@ const AppointmentForm = () => {
                                 id="date"
                                 value={date}
                                 min={minBookingDate}
-                                onChange={(e) => setDate(e.target.value)}
+                                onChange={(e) => {
+                                    const selected = e.target.value;
+                                    if (isDateDisabled(selected)) {
+                                        setMessage(
+                                            'Помилка: Ця дата недоступна для запису. Оберіть іншу, будь ласка.'
+                                        );
+                                        setDate('');
+                                    } else {
+                                        setMessage('');
+                                        setDate(selected);
+                                    }
+                                }}
                                 required
                                 disabled={isLoading}
                             />
@@ -414,6 +443,18 @@ const AppointmentForm = () => {
                                 </p>
                             )}
                         </div>
+                        {message && (
+                            <p
+                                style={{
+                                    marginTop: '10px',
+                                    color: message.startsWith('Помилка')
+                                        ? 'red'
+                                        : 'green',
+                                }}
+                            >
+                                {message}
+                            </p>
+                        )}
                         <div className={classes.btnContainer}>
                             <button
                                 className={
@@ -431,18 +472,6 @@ const AppointmentForm = () => {
                                     : 'Відправити запис'}
                             </button>
                         </div>
-                        {message && (
-                            <p
-                                style={{
-                                    marginTop: '10px',
-                                    color: message.startsWith('Помилка')
-                                        ? 'red'
-                                        : 'green',
-                                }}
-                            >
-                                {message}
-                            </p>
-                        )}
                     </form>
                     <div className={classes.formDescription}>
                         <h2>
