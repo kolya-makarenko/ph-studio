@@ -70,7 +70,7 @@
         grid-template-columns: repeat(5, 1fr);
     }
     .galeryImageOpen {
-        height: calc(100vh - 70px);
+        height: 50vh;
     }
 }
 
@@ -83,6 +83,12 @@
 @media (max-width: 700px) {
     .galeryContainer {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .galeryImageOpenContainer {
+        align-items: center;
+    }
+    .galeryImageOpen {
+        height: 40vh;
     }
 }
 
