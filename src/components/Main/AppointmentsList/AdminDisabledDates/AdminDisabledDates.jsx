@@ -84,12 +84,15 @@ const AdminDisabledDates = () => {
         <div className={`wrapper ${classes.disabledDateBlock}`}>
             <h2>Заборонити дати для запису:</h2>
             <div className={classes.disabledDateContainer}>
-                <input
-                    type="date"
-                    value={dateInput}
-                    onChange={(e) => setDateInput(e.target.value)}
-                    disabled={loading}
-                />
+                <label>
+                    Дата:
+                    <input
+                        type="date"
+                        value={dateInput}
+                        onChange={(e) => setDateInput(e.target.value)}
+                        disabled={loading}
+                    />
+                </label>
                 <button
                     className={
                         loading || !dateInput
